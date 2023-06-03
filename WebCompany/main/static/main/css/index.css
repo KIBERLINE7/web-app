@@ -1,0 +1,46 @@
+body {
+    background: #e3d6cf;
+}
+
+main {
+    background: #FAE8D7;
+    margin-left: 5%;
+    margin-top: 10%;
+    margin-right: 5%;
+    margin-bottom: 10%;
+    padding: 5%;
+}
+
+form {
+    margin-left: 30%;
+    width: 500px;
+    margin-top: 5px;
+}
+
+form-control {
+    margin-top: 5px;
+}
+
+main .top-out{
+    text-align:right;
+    padding-right:5px;
+    margin: 5px;
+}
+
+main .scrollbox {
+    overflow: scroll;
+    height: 141px;
+    width: auto;
+}
+
+ul.bl {
+    margin: 0;
+    list-style: none;
+}
+
+ul.bl li {
+
+    display: inline;
+    border: 1px solid black;
+
+}

@@ -1,0 +1,19 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Изменение данных{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>Изменить данные аккаунта</h3>
+        <form method="post">
+            {% csrf_token %}
+            Почта: <input name="mail" type="text" placeholder="Почта" class="form-control" value="{{ user.mail }}"><br>
+            Номер телефона: <input name="number" type="text" placeholder="Номер телефона" class="form-control" value="{{ user.number_phone }}"><br>
+            <button class="btn btn-success" type="submit" class="form-control">Изменить данные</button>
+            <a href="{{ back_url }}" class="btn btn-danger">Назад</a>
+            <br>
+        </form>
+    </div>
+    
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    <h3>Добро пожаловать в личный кабинет</h3>
+    <div class="top-out">
+        <a href="{{ back_url }}" class="btn btn-danger">Назад</a>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <p>{{ user.id_department.name_department }}</p>
+                <p>Должность: {{ user.id_position.name_position }}</p>
+                <p>Фамилия: {{ view_user.surname }}</p>
+                <p>Имя: {{ view_user.name }}</p>
+                <p>Отчество: {{ view_user.secondname }}</p>
+                <p>Дата рождения: {{ view_user.born }}</p>
+                <p>Стаж: {{ year }} г.</p>
+                <p>Оклад: {{ view_user.salary }} руб.</p>
+            </div>
+            <div class="col-4">
+                <img src="{% static user.img %}" alt="Здесь была картинка" class="col-8">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <p>Почта: {{ view_user.mail }}</p>
+                <p>Номер телефона: {{ view_user.number_phone }}</p>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

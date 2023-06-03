@@ -1,0 +1,116 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    <h3>Добро пожаловать в личный кабинет</h3>
+    <div class="top-out">
+        <a href="{% url 'logout' %}"><button class="btn btn-info"><i class="fas fa-sign-out-alt"></i> Выход</button></a>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <p>{{ user.id_department.name_department }}</p>
+                <p>Должность: {{ user.id_position.name_position }}</p>
+                <p>Фамилия: {{ user.surname }}</p>
+                <p>Имя: {{ user.name }}</p>
+                <p>Отчество: {{ user.secondname }}</p>
+                <p>Дата рождения: {{ user.born }}</p>
+                <p>Стаж: {{ year }} г.</p>
+                <p>Оклад: {{ user.salary }} руб.</p>
+            </div>
+            <div class="col-4">
+                <img src="{% static user.img %}" alt="Здесь была картинка" class="col-8">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <p>Почта: {{ user.mail }}</p>
+                <p>Номер телефона: {{ user.number_phone }}</p>
+
+            </div>
+            <div class="col-3" style="text-align:right;">
+                <a href="{% url 'userupdates' %}"><button class="btn btn-success"><i class="fas fa-pen" style="color: #ffffff;"></i> Изменить данные</button></a>
+             </div>
+            <div class="col-3" style="text-align:right;">
+                 <a href="{% url 'edidpass' %}"><button class="btn btn-primary"><i class="fas fa-pen" style="color: #ffffff;"></i> Сменить пароль</button></a>
+            </div>
+        </div>
+    </div>
+
+    <h5>Список сотрудников:</h5>
+    <div class="mb-2">
+        <label>Поиск: <input type="text" name="search"></label>
+    </div>
+    <div class="scrollbox">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-3 border border-dark">
+                      <p>Сотрудник</p>
+                </div>
+                <div class="col-2 border border-dark">
+                      <p>Отдел</p>
+                </div>
+                <div class="col-2 border border-dark">
+                      <p>Должность</p>
+                </div>
+                <div class="col-3 border border-dark">
+                    <p>Почта</p>
+                </div>
+                <div class="col col-1"></div>
+                <div class="col col-1"></div>
+            </div>
+            {% for el in users %}
+                {% if el.id != user.id %}
+                    <div class="row item">
+                        <div class="col-3 border border-dark">
+                          <p>{{ el.surname }} {{ el.name }} {{ el.secondname }}</p>
+                        </div>
+                        <div class="col-2 border border-dark">
+                              <p>{{ el.id_department.name_department }}</p>
+                        </div>
+                        <div class="col-2 border border-dark">
+                              <p>{{ el.id_position.name_position }}</p>
+                        </div>
+                        <div class="col-3 border border-dark">
+                            <p>{{ el.mail }}</p>
+                        </div>
+                        <div class="col-1" style="display: flex; align-items: right; justify-content: right;">
+                            <a href="{% url 'viewprofile' el.id %}"><button class="btn btn-warning"><i class="fas fa-user-tie" style="color: #000000;"></i></i></button></a>
+                        </div>
+                        <div class="col-1" style="display: flex; align-items: center; justify-content: center;">
+                        {% if el.id_department.name_department == user.id_department.name_department and el.id_position.name_position == "Сотрудник" %}
+                            <a href="{% url 'edituser' el.id %}"><button class="btn btn-success"><i class="fas fa-pen" style="color: #ffffff;"></i></button></a>
+                        {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        const input = document.querySelector("input[name=search]");
+        const elements = Array.from(document.querySelectorAll(".item"));
+        input.addEventListener("change", () => {
+            const values = input.value.split(/\s+/g);
+            elements.forEach(el => {
+                const flag = values.reduce((acc, val) => el.textContent.includes(val) && acc, true);
+                if (flag) {
+                    el.classList.remove("d-none");
+                }
+                else {
+                    el.classList.add("d-none");
+                }
+            });
+        });
+
+    </script>
+
+{% endblock %}
